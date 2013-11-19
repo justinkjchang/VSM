@@ -1,0 +1,41 @@
+
+class NewThread implements Runnable{
+	Thread t;
+	
+	NewThread(){
+		// create new, second thread
+		t = new Thread(this, "Data retrieval thread");
+		System.out.println("Retrieving data for: " + t);
+		t.start(); // start thread
+	}
+	
+	// entry point for second thread
+	public void run() {
+		// TODO Auto-generated method stub
+		try {
+			for (int i = 5; i > 0; i--){
+				System.out.println("Retrieving Data: " + i);
+				//let thread sleep for awhile
+				//Thread.sleep(50);
+			}
+		} catch (InterruptedException e) {
+			System.out.println("Data retrieval interrupted");
+		}
+		System.out.println("Data retrieval complete");
+	}
+}
+
+public class ThreadDemo {
+	public static void main(String[] args){
+		new NewThread();
+		try {
+			for (int i = 5; i > 0; i--){
+				System.out.println("Main thread: " + i);
+				Thread.sleep(100);
+			}
+		} catch (InterruptedException e){
+			System.out.println("Main thread interrupted");
+		}
+		System.out.println("Main thread exiting.");
+	}
+}

@@ -1,21 +1,15 @@
 package com.juuhhhstin.StockData;
 
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.TimeoutException;
 
 public class Main {
-	
-	public static int stockIterationError;
 	
 	public static void main(String[] args) throws Exception{
 		// array for 
 		ArrayList<String> stocksList = new ArrayList<String>(); // array for list of stocks
 		StockInfo StockInfo = new StockInfo(); // create StockInfo object to retrieve data from yahoo finance
 		String symbol = "";
-		int noErrors = 1;
 		
 		Scanner in = new Scanner(System.in);
 		
@@ -29,28 +23,12 @@ public class Main {
 			}
 			stocksList.add(symbol); // add stock symbol to array
 		}
-		//while(noErrors == 1){
-			
-		//}
+
 		// call "getCurrentPrice" function and display
-		try{
-			for(int i = 0; i < stocksList.size(); i++){
-				System.out.println(stocksList.get(i).toUpperCase() + ": " 
-						+ StockInfo.getCurrentPrice(stocksList.get(i)) + ": " // print current price for each stock
-						+ StockInfo.getStockName(stocksList.get(i)));  // print full name of each stock
-				stockIterationError = i;
-			}
-		} catch (NumberFormatException e){
-			if (stocksList.size() > 1){
-				System.out.println("Number format exception (Invalid symbol?) for " + stocksList.get(stockIterationError + 1));
-			} else {
-				System.out.println("Number format exception (Invalid symbol?) for " + stocksList.get(stockIterationError));
-			}
-		} catch (TimeoutException ex){
-			System.out.println("Timeout Exception for " + stocksList.get(stockIterationError + 1));
-		} catch (SocketTimeoutException STE){
-			System.out.println("Socket Timeout Exception for " + stocksList.get(stockIterationError + 1));
-		} catch (UnknownHostException UHE){
+		for(int i = 0; i < stocksList.size(); i++){
+			//stocksList.get(i).toUpperCase();
+			StockInfo.getCurrentPrice(stocksList.get(i).toUpperCase()); // print current price for each stock symbol
+			StockInfo.getStockName(stocksList.get(i).toUpperCase()); // print stock name of each stock symbol
 		}
 		
 		System.out.println("Done retrieving data");

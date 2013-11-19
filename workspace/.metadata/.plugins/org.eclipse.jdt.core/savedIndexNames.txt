@@ -1,4 +1,3 @@
 INDEX VERSION 1.126+/Users/JustinChang/Dropbox/StockMarket/workspace/.metadata/.plugins/org.eclipse.jdt.core
 2587500172.index
-2202036104.index
 2282137349.index
