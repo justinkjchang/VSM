@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeoutException;
 
-
 public class Main {
+	
+	public static int stockIterationError;
+	
 	public static void main(String[] args) throws Exception{
 		// array for 
 		ArrayList<String> stocksList = new ArrayList<String>(); // array for list of stocks
@@ -36,15 +38,19 @@ public class Main {
 				System.out.println(stocksList.get(i).toUpperCase() + ": " 
 						+ StockInfo.getCurrentPrice(stocksList.get(i)) + ": " // print current price for each stock
 						+ StockInfo.getStockName(stocksList.get(i)));  // print full name of each stock
+				stockIterationError = i;
 			}
 		} catch (NumberFormatException e){
-			System.out.println("Number format exception");
+			if (stocksList.size() > 1){
+				System.out.println("Number format exception (Invalid symbol?) for " + stocksList.get(stockIterationError + 1));
+			} else {
+				System.out.println("Number format exception (Invalid symbol?) for " + stocksList.get(stockIterationError));
+			}
 		} catch (TimeoutException ex){
-			System.out.println("Timeout Exception");
+			System.out.println("Timeout Exception for " + stocksList.get(stockIterationError + 1));
 		} catch (SocketTimeoutException STE){
-			System.out.println("Socket Timeout Exception");
+			System.out.println("Socket Timeout Exception for " + stocksList.get(stockIterationError + 1));
 		} catch (UnknownHostException UHE){
-			System.out.println("Unknown Host Exception: Not connected to internet");
 		}
 		
 		System.out.println("Done retrieving data");
